@@ -1,0 +1,93 @@
+
+
+Input1 represents the array of numbers, and input2 represents the number of elements in the array.
+
+Example 1: If the array input1 is{74,-56,15,71,92,23} and input2 is 6.
+First array element 7
+Here, KEY = 7 NEXT_ADDRESS = 4
+4th array element = 92(NOTE THAT ARRAY ELEMENT ADDRESS STARTS FROM 0, so 4th element is 92) .
+Here, KEY = 9 NEXT_ADDRESS = 2. 2nd array element = 15. Here, KEY = 1 NEXT_ADDREESS = 5. 5th array element = 23.
+Here , KEY = 2 NEXT_ADDRESS = 3. 3rd array element = 71. Here KEY= 7 NEXT_ADDRESS = 1. 1st array element =-56. 
+Here KEY = 5 NEXT_ADDRESS = STOP(because we have reached a negative number )
+FINAL RESULT = Alternately Subtract and Add the keys = 7 - 9 + 1 -2 + 7 -5 = -1
+
+The result of alternate subtraction and addition of all the keys is the excepted final results.
+Note that we should stop traversing(travelling)through the array when a negative number is encountered.
+IMPORTANT: If the array does Not contain any negative number, the result should be the largest number in the array.
+
+Sample Input 0
+6
+74 -56 15 71 92 23
+
+Sample Output 0
+-1
+
+
+import java.io.*;
+import java.util.*;
+
+public class Solution 
+{
+    public static int fun(int n,int[] a)
+    {
+        int k=0;
+        int count=0;
+        int sum=0;
+        int ind=0;
+        int f=0;
+        while(k>=0)
+        {
+            String s=Integer.toString(a[ind]);
+            if(s.charAt(0)=='-')
+            {
+                k=Integer.parseInt(String.valueOf(s.substring(1,2)));
+                f=1;
+            }
+            else
+            {
+                k=Integer.parseInt(String.valueOf(s.charAt(0)));
+                ind=Integer.parseInt(String.valueOf(s.substring(1,s.length())));  
+            }
+            count=count+1;
+            if(count%2!=0)
+               sum=sum+k;
+            else
+               sum=sum-k;
+            if(f==1)
+                break;
+        }
+        return sum;                                 
+    }
+    
+    public static int max(int n, int[] a)
+    {
+        int max=-100000;
+        for(int i=0;i<n;i++)
+        {
+            if(max<a[i])
+                max=a[i];
+        }
+        return max;
+    }
+    public static void main(String[] args) 
+    {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] a=new int[n];
+        for(int i=0;i<n;i++)
+        {
+            a[i]=sc.nextInt();
+        }
+        int c=1;
+        for(int i=0;i<n;i++)
+        {
+            if(a[i]<0)
+                c=0;
+        }
+        if(c==0)
+            System.out.println(fun(n,a));
+        else
+            System.out.println(max(n,a));
+        
+    }
+}

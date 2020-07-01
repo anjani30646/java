@@ -1,0 +1,124 @@
+STEP ONE:
+Given any three strings break each string into 3 parts each
+For example : if the three strings are as follows
+Input1:"John"
+Input2:"Johny"
+Input3:"Janardhan"
+"John" should be split into "J","oh","n" as the FRONT ,MIDDLE and END parts respectively.
+"Johny" should be split into "Jo","h","ny" as the FRONT ,MIDDLE and END parts respectively.
+"Janardhan" should be split into "Jan","ard","han" as the FRONT ,MIDDLE and END parts respectively.
+i.e
+if the no.of characters in the string are in multiples of 3 then each split part will contain equal 
+no of characters as seen in the example of "Janardhan".
+if the no.of characters in the string are NOT in multiples of 3
+and if there is one character more than multiple of 3 then the MIDDLE part will get the extra character 
+as seen in the example of "John".
+if the no.of characters in the string are NOT in multiples of 3
+and if there are TWO characters more than multiple of 3 then the
+FRONT and END parts will get one extra character each as seen in the example of "Johny".
+
+STEP TWO :
+Concatenate (JOIN) the FRONT,MIDDLE and END parts of the strings as per the below specified 
+concatenation-rule to form three Output Strings
+
+Output1=FRONT part of Input1+MIDDLE part of Input2+END part of Input3.
+Output2=MIDDLE part of Input1+END part of Input2+FRONT part of Input3.
+Output3=END part of Input1+FRONT part of Input2+MIDDLE part of Input3.
+
+For example , for the above specified example input strings
+
+Output1="J" + "h"+ "han" = "Jhhan"
+Output2="oh" + "ny"+ "Jan" = "ohnyJan"
+Output3="n" + "Jo"+ "ard" = "nJoard"
+
+STEP THREE :
+
+" Toggle the case of each character in the string" i.e in the third output string all 
+lower -case characters should be made upper-case and vice versa.
+For example for the above example strings Output3 is "nJoard".
+So after applying the toggle rule Output3 should become "NjOARD".
+
+Sample Input 0
+John
+Johny
+Janardhan
+
+Sample Output 0
+Jhhan
+ohnyJan
+NjOARD
+
+import java.util.*;
+import java.io.*;
+
+public class Solution 
+{
+ public static void main(String[] args)
+ {
+  
+  Scanner sc=new Scanner(System.in);
+  String a=sc.next();
+  String b=sc.next();
+  String c=sc.next();
+  
+  String[] str = fun1(a);
+  String[] str2 = fun1(b);
+  String[] str3 = fun1(c);
+  
+  String in1 = str[0] + str2[1] + str3[2];
+  String in2 = str[1] + str2[2] + str3[0];
+  String in3 = str[2] + str2[0] + str3[1];
+  String fstr3=fun2(in3);
+     
+  System.out.println(in1);
+  System.out.println(in2);
+  System.out.println(fstr3);
+}
+
+public static String[] fun1(String input) 
+{
+  int rem = input.length()%3;
+  int div = input.length()/3;
+  String fir = null;
+  String sen = null;
+  String thir = null;
+  if (rem == 1)
+  {
+       fir = input.substring(0, div);
+       sen = input.substring(fir.length(), fir.length() + div + rem);
+       thir = input.substring(fir.length() + sen.length(), input.length());
+  }
+
+  if (rem == 2) 
+  {
+       fir = input.substring(0, div + 1);
+       sen = input.substring(fir.length(), fir.length() + div);
+       thir = input.substring(fir.length() + sen.length(), input.length());
+  }
+  if (rem == 0) 
+  {
+       fir= input.substring(0, div);
+       sen = input.substring(fir.length(), fir.length() + div);
+       thir = input.substring(fir.length() + sen.length(), input.length());
+  }
+  return new String[] { fir, sen, thir };
+ }
+
+public static String fun2(String str) 
+{
+  char[] ch = str.toCharArray();
+  String s="";
+  for (int i = 0; i < ch.length; i++) 
+    {
+        if (Character.isLowerCase(ch[i])) 
+        {
+            s=s+Character.toUpperCase(ch[i]);
+        }    
+       if (Character.isUpperCase(ch[i]))
+       {
+         s=s+Character.toLowerCase(ch[i]);
+       }
+    }
+  return s;
+ }
+}
