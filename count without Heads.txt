@@ -1,0 +1,33 @@
+Bob Challenges Alex to code with the following problem: Find the total number of sequences of length n 
+(using H and T) such that no two Hs are next to each other. For example, for n = 2, 
+we have 3 possible sequences: HT TH TT
+
+Input Format
+The only line of input is the value of n
+
+Constraints
+2<=n<=20
+
+Output Format
+Print the total number of sequences possible with no 2 H's consecutive
+
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) 
+    {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int n1=1,n2=1,n3=0;
+        for(int i=2;i<n+2;i++)
+        {
+            n3=n1+n2;
+            n1=n2;
+            n2=n3;
+        }
+        System.out.println(n3);
+    }
+}

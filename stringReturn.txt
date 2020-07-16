@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+
+string* fun(string s)
+{
+    static string a[2];
+    a[0]=s.substr(0,2);
+    a[1]=s.substr(2,4);
+    return a;
+}
+
+int main() 
+{
+    string s="abcd";
+    string* a= fun(s);
+    cout << a[0]  << " " << a[1];
+}
